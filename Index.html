@@ -1,305 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Get Paid By Playing Games</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Paid By Playing Games</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tg: #229ED9;
+    --wa: #25D366;
+    --bg: #0a0a12;
+    --card: #12121e;
+    --text: #f0f0ff;
+    --muted: #8888aa;
+    --gold: #FFD700;
+    --accent: #ff6b35;
+  }
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(160deg, #7b2ff7 0%, #c4318a 55%, #f0197d 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-      padding: 16px;
-      position: relative;
-      overflow-x: hidden;
-    }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* TOASTS — fixed position, never touches card */
-    #toast-container {
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 24px);
-      max-width: 320px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      z-index: 999;
-      pointer-events: none;
-    }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+  }
 
-    .toast {
-      background: #1a1a2e;
-      border-radius: 50px;
-      padding: 8px 13px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 7px;
-      animation: toastIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards,
-                 toastOut 0.35s ease forwards 3.8s;
-      opacity: 0;
-      width: 100%;
-    }
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(34,158,217,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(255,107,53,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 60%);
+    animation: bgPulse 8s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-    .toast-left {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex: 1;
-    }
+  @keyframes bgPulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1) rotate(3deg); }
+  }
 
-    .toast-dot {
-      width: 7px; height: 7px;
-      background: #2ecc71;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    padding: 20px 20px 28px;
+  }
 
-    .toast-text {
-      font-size: 11px;
-      color: #fff;
-      font-weight: 400;
-      line-height: 1.3;
-    }
+  /* Toast — pushed below status bar, won't cover badge */
+  .toast-container {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    z-index: 100;
+    pointer-events: none;
+  }
 
-    .toast-text strong { font-weight: 700; }
+  .toast {
+    background: rgba(18,18,30,0.96);
+    border: 1px solid rgba(34,158,217,0.3);
+    border-left: 3px solid var(--tg);
+    border-radius: 10px;
+    padding: 9px 13px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    opacity: 0;
+    transform: translateY(-16px);
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast-avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--tg), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .toast-text strong { color: var(--tg); }
+  .toast-text span { color: var(--muted); font-size: 11px; }
 
-    .toast-time {
-      font-size: 10px;
-      color: rgba(255,255,255,0.4);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
+  /* Hero */
+  .hero { text-align: center; padding: 8px 0 12px; }
 
-    @keyframes toastIn {
-      from { opacity: 0; transform: translateY(-10px) scale(0.96); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes toastOut {
-      from { opacity: 1; }
-      to   { opacity: 0; }
-    }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,215,0,0.1);
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .badge::before { content: '🔥'; font-size: 12px; }
 
-    /* CARD — small and centered, never moves */
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      padding: 24px 22px 22px;
-      width: 100%;
-      max-width: 300px;
-      text-align: center;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.28);
-      position: relative;
-      z-index: 1;
-    }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1.0;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff 0%, var(--tg) 55%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-    h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 24px;
-      font-weight: 800;
-      color: #e8321a;
-      line-height: 1.15;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
+  .live-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(34,158,217,0.1);
+    border: 1px solid rgba(34,158,217,0.2);
+    border-radius: 24px;
+    padding: 6px 16px;
+    margin: 8px 0 14px;
+    font-size: 13px;
+    font-weight: 600;
+  }
 
-    .subtext {
-      font-size: 13px;
-      color: #444;
-      font-weight: 500;
-      margin-bottom: 18px;
-    }
+  .live-dot {
+    width: 7px; height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.75); }
+  }
 
-    /* BUTTONS */
-    .btn-yes {
-      display: block;
-      width: 100%;
-      padding: 13px;
-      background: #e8421a;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 16px;
-      font-weight: 800;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      text-decoration: none;
-      margin-bottom: 10px;
-      letter-spacing: 0.5px;
-      animation: glowPulse 2s ease-in-out infinite;
-    }
+  /* Inline earnings */
+  .inline-earning {
+    margin-bottom: 14px;
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+  }
 
-    @keyframes glowPulse {
-      0%, 100% { box-shadow: 0 3px 14px rgba(232,66,26,0.4); }
-      50% { box-shadow: 0 3px 24px rgba(232,66,26,0.75), 0 0 18px 5px rgba(232,66,26,0.18); }
-    }
+  .inline-earning-card {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-left: 3px solid var(--gold);
+    border-radius: 14px;
+    padding: 13px 15px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .inline-earning-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--accent), var(--tg));
+  }
+  .inline-earning-card.visible { opacity: 1; transform: translateY(0) scale(1); }
 
-    .btn-yes:hover { animation: none; box-shadow: 0 6px 24px rgba(232,66,26,0.6); }
+  .ie-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
 
-    .btn-no {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 13px;
-      background: #1a1a2e;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 14px;
-      font-weight: 800;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      margin-bottom: 18px;
-      line-height: 1.3;
-      animation: subtleBounce 3s ease-in-out infinite;
-      box-shadow: 0 3px 12px rgba(26,26,46,0.3);
-    }
+  .ie-body { flex: 1; min-width: 0; }
+  .ie-name { font-weight: 600; font-size: 12px; color: var(--muted); margin-bottom: 1px; }
 
-    @keyframes subtleBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-2px); }
-    }
+  .ie-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: var(--gold);
+    line-height: 1.1;
+  }
 
-    /* COUNTER */
-    .counter-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-    }
+  .ie-label { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
-    .counter-icon svg {
-      width: 18px; height: 18px;
-      fill: #e8321a;
-      display: block;
-    }
+  .ie-badge {
+    background: rgba(34,197,94,0.12);
+    border: 1px solid rgba(34,197,94,0.3);
+    color: #22c55e;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 
-    .counter-number {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 17px;
-      font-weight: 800;
-      color: #e8321a;
-    }
+  /* Telegram button */
+  .btn-telegram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, var(--tg) 0%, #1a7db0 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 14px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(34,158,217,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    letter-spacing: 0.5px;
+  }
+  .btn-telegram::before {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    animation: shimmer 2.5s infinite;
+  }
+  @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+  .btn-telegram:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(34,158,217,0.5); }
 
-    .counter-label {
-      font-size: 11px;
-      color: #555;
-      font-weight: 500;
-      line-height: 1.3;
-      text-align: left;
-    }
+  .tg-icon { width: 26px; height: 26px; flex-shrink: 0; }
+  .btn-label { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; }
+  .btn-label small { font-size: 11px; font-weight: 400; opacity: 0.85; }
 
-    .online-dot {
-      width: 8px; height: 8px;
-      background: #2ecc71;
-      border-radius: 50%;
-      flex-shrink: 0;
-      animation: blink 1.6s ease infinite;
-    }
+  /* WhatsApp */
+  .whatsapp-section { text-align: center; margin-bottom: 14px; }
+  .whatsapp-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px; color: var(--muted); font-size: 12px;
+  }
+  .whatsapp-divider::before,
+  .whatsapp-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
+  .btn-whatsapp {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px;
+    background: rgba(37,211,102,0.08);
+    border: 1px solid rgba(37,211,102,0.25);
+    color: var(--wa); text-decoration: none;
+    border-radius: 10px; font-size: 14px; font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .btn-whatsapp:hover { background: rgba(37,211,102,0.15); }
+  .wa-icon { width: 18px; height: 18px; }
 
-    .reconsider { display: none; }
-  </style>
+  /* Trust row */
+  .trust-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px; margin-bottom: 16px;
+  }
+  .trust-item {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 12px 8px; text-align: center;
+  }
+  .trust-item .emoji { font-size: 20px; margin-bottom: 4px; }
+  .trust-item .val { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; margin-bottom: 2px; }
+  .trust-item .lbl { font-size: 10px; color: var(--muted); }
+
+  /* Footer */
+  .footer { text-align: center; font-size: 11px; color: var(--muted); line-height: 1.9; }
+
+  /* Animations */
+  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .d1 { animation-delay: 0.1s; } .d2 { animation-delay: 0.2s; }
+  .d3 { animation-delay: 0.3s; } .d4 { animation-delay: 0.4s; }
+  .d5 { animation-delay: 0.5s; }
+</style>
 </head>
 <body>
 
-  <div id="toast-container"></div>
+<div class="toast-container" id="toastContainer"></div>
 
-  <div class="card" id="main-card">
+<div class="container">
+
+  <div class="hero fade-up">
+    <div class="badge">LIMITED SLOTS AVAILABLE</div>
     <h1>GET PAID BY<br>PLAYING GAMES</h1>
-    <p class="subtext">Are You Ready To Start?</p>
-
-    <a href="https://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP" target="_blank" rel="noopener" class="btn-yes">YES</a>
-    <a href="https://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP" target="_blank" rel="noopener" class="btn-no">
-      Join WhatsApp Community
-      <span style="font-size:11px;font-weight:500;font-family:Inter,sans-serif;margin-top:3px;color:rgba(255,255,255,0.6);">100% Free</span>
-    </a>
-
-    <div class="counter-row">
-      <div class="counter-icon">
-        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-      </div>
-      <span class="counter-number" id="online-count">1,330</span>
-      <span class="counter-label">Nigerians Playing<br>Games Now</span>
-      <div class="online-dot"></div>
+    <div class="live-counter">
+      <div class="live-dot"></div>
+      <span id="liveCount">...</span> Nigerians Playing Now
     </div>
   </div>
 
-  <div class="card reconsider" id="no-card">
-    <h1 style="font-size:20px;margin-bottom:10px;">Are You Sure?</h1>
-    <p style="font-size:13px;color:#555;margin-bottom:18px;line-height:1.6;">Members are earning <strong style="color:#e8321a">₦45,000 – ₦1,300,000</strong> playing games from their phones. Don't miss out.</p>
-    <a href="https://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP" target="_blank" rel="noopener" class="btn-yes">OK, I Want In</a>
-    <div class="btn-no" onclick="window.history.back()">No Thanks</div>
+  <div class="inline-earning fade-up d1">
+    <div class="inline-earning-card" id="inlineCard">
+      <div class="ie-avatar" id="ieAvatar">💰</div>
+      <div class="ie-body">
+        <div class="ie-name" id="ieName">Loading...</div>
+        <div class="ie-amount" id="ieAmount">₦—</div>
+        <div class="ie-label">just withdrew to their bank</div>
+      </div>
+      <div class="ie-badge">PAID ✓</div>
+    </div>
   </div>
 
-  <script>
-    const names = ["Chidera","Ibrahim","Victor","Amaka","Tunde","Fatima","Emeka","Blessing","Seun","Ngozi","Halima","Rotimi","Kemi","Musa","Adaeze","Usman","Sola","Taiwo","Bello","Precious","Gbenga","Yetunde"];
-    const locations = ["Lagos","Abuja","Kano","Kebbi","Bayelsa","Enugu","Ibadan","Port Harcourt","Minna","Kaduna","Warri","Ilorin","Jos","Calabar","Owerri"];
-    const amounts = ["₦45,200","₦178,500","₦312,000","₦67,800","₦520,400","₦89,100","₦743,600","₦134,200","₦960,000","₦256,800","₦1,100,000","₦1,300,000","₦487,500","₦623,900","₦815,000","₦1,050,000","₦392,700","₦57,300"];
-    const banks = ["Opay","Palmpay","Kuda","GTBank","Access Bank","UBA","Moniepoint","FCMB","Zenith","First Bank"];
-    const actions = [
-      (name, loc, amt, bank) => `<strong>${name}</strong> from ${loc} just withdrew <strong>${amt}</strong> to ${bank}`,
-      (name, loc, amt, bank) => `<strong>${name}</strong> from ${loc} cashed out <strong>${amt}</strong> to ${bank}`,
-      (name, loc, amt, bank) => `<strong>${name}</strong> from ${loc} transferred <strong>${amt}</strong> to ${bank}`,
-      (name, loc, amt, bank) => `<strong>${name}</strong> from ${loc} just received <strong>${amt}</strong> on ${bank}`,
-    ];
+  <a href="https://t.me/coachformate" class="btn-telegram fade-up d2">
+    <svg class="tg-icon" viewBox="0 0 24 24" fill="white">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+    </svg>
+    <div class="btn-label">
+      <small>Join for FREE on</small>
+      JOIN TELEGRAM NOW
+    </div>
+  </a>
 
-    const container = document.getElementById('toast-container');
+  <div class="whatsapp-section fade-up d3">
+    <div class="whatsapp-divider">Don't have Telegram?</div>
+    <a href="https://chat.whatsapp.com/GsYD3KwYfSR6bXGyb5PYKb" class="btn-whatsapp">
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="#25D366">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+      </svg>
+      Join on WhatsApp instead
+    </a>
+  </div>
 
-    function createToast(name, location, amount) {
-      const bank = banks[Math.floor(Math.random()*banks.length)];
-      const action = actions[Math.floor(Math.random()*actions.length)];
-      const t = document.createElement('div');
-      t.className = 'toast';
-      t.innerHTML = `<div class="toast-left"><div class="toast-dot"></div><div class="toast-text">${action(name, location, amount, bank)}.</div></div><div class="toast-time">now</div>`;
-      return t;
-    }
+  <div class="trust-row fade-up d4">
+    <div class="trust-item">
+      <div class="emoji">🎮</div>
+      <div class="val">30,000+</div>
+      <div class="lbl">Members</div>
+    </div>
+    <div class="trust-item">
+      <div class="emoji">💸</div>
+      <div class="val">Daily</div>
+      <div class="lbl">Payouts</div>
+    </div>
+    <div class="trust-item">
+      <div class="emoji">📱</div>
+      <div class="val">100%</div>
+      <div class="lbl">Free to Join</div>
+    </div>
+  </div>
 
-    function showBatch() {
-      while (container.children.length >= 3) container.removeChild(container.firstChild);
-      const count = Math.random() > 0.4 ? 2 : 1;
-      for (let i = 0; i < count; i++) {
-        setTimeout(() => {
-          const toast = createToast(
-            names[Math.floor(Math.random()*names.length)],
-            locations[Math.floor(Math.random()*locations.length)],
-            amounts[Math.floor(Math.random()*amounts.length)]
-          );
-          container.appendChild(toast);
-          setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 4300);
-        }, i * 700);
-      }
-    }
+  <div class="footer fade-up d5">
+    ✅ No experience needed &nbsp;•&nbsp; ✅ Works on any phone<br>
+    ✅ Nigerians only &nbsp;•&nbsp; ✅ Withdraw anytime
+  </div>
 
-    showBatch();
-    function scheduleNext() {
-      setTimeout(() => { showBatch(); scheduleNext(); }, Math.random()*3000+4000);
-    }
-    scheduleNext();
+</div>
 
-    let onlineCount = 1330;
-    setInterval(() => {
-      onlineCount = Math.max(1100, Math.min(1600, onlineCount + Math.floor(Math.random()*9)-4));
-      document.getElementById('online-count').textContent = onlineCount.toLocaleString();
-    }, 4000);
-  </script>
+<script>
+  const names = [
+    'Chioma A.', 'Emeka O.', 'Fatima B.', 'Tunde L.', 'Ngozi C.',
+    'Bello M.', 'Amaka I.', 'Seun K.', 'Hauwa D.', 'Chidi N.',
+    'Yetunde F.', 'Musa A.', 'Blessing E.', 'Kola R.', 'Adaeze P.',
+    'Ibrahim S.', 'Folake T.', 'Uche W.', 'Zainab H.', 'Gbenga J.'
+  ];
 
+  const amounts = [
+    '₦55,000', '₦120,000', '₦87,500', '₦210,000', '₦75,000',
+    '₦340,000', '₦95,000', '₦1,200,000', '₦450,000', '₦3,000,000',
+    '₦68,000', '₦180,000', '₦2,500,000', '₦600,000', '₦155,000'
+  ];
+
+  const emojis = ['🎮','💰','🎯','🏆','💵','🎲','🤑','🔥'];
+
+  // Inline card
+  const card = document.getElementById('inlineCard');
+  let lastIdx = -1;
+
+  function updateInlineCard() {
+    card.classList.remove('visible');
+    setTimeout(() => {
+      let idx;
+      do { idx = Math.floor(Math.random() * names.length); } while (idx === lastIdx);
+      lastIdx = idx;
+      document.getElementById('ieAvatar').textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      document.getElementById('ieName').textContent = names[idx];
+      document.getElementById('ieAmount').textContent = amounts[Math.floor(Math.random() * amounts.length)];
+      card.classList.add('visible');
+    }, 500);
+  }
+
+  setTimeout(() => { updateInlineCard(); setInterval(updateInlineCard, 4000); }, 800);
+
+  // Top toasts — join notifications
+  function showToast() {
+    const container = document.getElementById('toastContainer');
+    const name = names[Math.floor(Math.random() * names.length)];
+    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+      <div class="toast-avatar">${emoji}</div>
+      <div class="toast-text">
+        <strong>${name}</strong> just joined the channel<br>
+        <span>a moment ago</span>
+      </div>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 50);
+    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3500);
+  }
+
+  setTimeout(() => { showToast(); setInterval(showToast, 7000); }, 5000);
+
+  // Live counter
+  let count = Math.floor(Math.random() * 15000) + 5000;
+  document.getElementById('liveCount').textContent = count.toLocaleString();
+  setInterval(() => {
+    count = Math.max(5000, Math.min(20000, count + Math.floor(Math.random() * 15) - 4));
+    document.getElementById('liveCount').textContent = count.toLocaleString();
+  }, 6000);
+</script>
 </body>
 </html>
