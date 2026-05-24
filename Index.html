@@ -35,7 +35,7 @@
     position: fixed;
     top: -50%; left: -50%;
     width: 200%; height: 200%;
-    background: 
+    background:
       radial-gradient(ellipse at 20% 20%, rgba(34,158,217,0.08) 0%, transparent 50%),
       radial-gradient(ellipse at 80% 80%, rgba(255,107,53,0.07) 0%, transparent 50%),
       radial-gradient(ellipse at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 60%);
@@ -43,24 +43,20 @@
     pointer-events: none;
     z-index: 0;
   }
-
-  @keyframes bgPulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1) rotate(3deg); }
-  }
+  @keyframes bgPulse { 0% { transform: scale(1); } 100% { transform: scale(1.1) rotate(3deg); } }
 
   .container {
     position: relative;
     z-index: 1;
     width: 100%;
     max-width: 420px;
-    padding: 20px 20px 28px;
+    padding: 8px 18px 12px;
   }
 
-  /* Toast — pushed below status bar, won't cover badge */
+  /* ── TOP TOASTS ── */
   .toast-container {
     position: fixed;
-    top: 60px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
     width: 320px;
@@ -73,226 +69,193 @@
     border: 1px solid rgba(34,158,217,0.3);
     border-left: 3px solid var(--tg);
     border-radius: 10px;
-    padding: 9px 13px;
-    margin-bottom: 8px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 13px;
+    gap: 9px;
+    font-size: 12px;
     opacity: 0;
-    transform: translateY(-16px);
+    transform: translateY(-14px);
     transition: all 0.4s ease;
     backdrop-filter: blur(10px);
   }
   .toast.show { opacity: 1; transform: translateY(0); }
   .toast-avatar {
-    width: 30px; height: 30px; border-radius: 50%;
+    width: 28px; height: 28px; border-radius: 50%;
     background: linear-gradient(135deg, var(--tg), var(--accent));
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; flex-shrink: 0;
+    font-size: 12px; flex-shrink: 0;
   }
   .toast-text strong { color: var(--tg); }
   .toast-text span { color: var(--muted); font-size: 11px; }
 
-  /* Hero */
-  .hero { text-align: center; padding: 8px 0 12px; }
+  /* ── TOP REVIEW BAR ── */
+  .top-bar {
+    background: linear-gradient(135deg, rgba(34,158,217,0.12), rgba(255,107,53,0.08), rgba(255,215,0,0.07));
+    border: 1px solid rgba(34,158,217,0.22);
+    border-radius: 11px;
+    padding: 9px 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+  }
+  .top-bar::before {
+    content: '';
+    position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+    animation: shimmer 3s infinite;
+  }
+  @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+
+  .top-bar-dot {
+    width: 7px; height: 7px; background: #ff4444;
+    border-radius: 50%; flex-shrink: 0;
+    animation: redpulse 1.2s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255,68,68,0.6);
+  }
+  @keyframes redpulse {
+    0%,100% { opacity:1; transform:scale(1); box-shadow: 0 0 6px rgba(255,68,68,0.6); }
+    50% { opacity:0.5; transform:scale(0.75); box-shadow: 0 0 2px rgba(255,68,68,0.2); }
+  }
+
+  .top-bar-text {
+    flex: 1; overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #dde0f5;
+    transition: opacity 0.35s ease;
+  }
+  .top-bar-text span { color: var(--gold); font-weight: 700; }
+
+  /* ── HERO ── */
+  .hero { text-align: center; padding: 6px 0 10px; }
 
   .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    display: inline-flex; align-items: center; gap: 6px;
     background: rgba(255,215,0,0.1);
     border: 1px solid rgba(255,215,0,0.3);
-    border-radius: 20px;
-    padding: 5px 14px;
-    font-size: 11px;
-    color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 12px;
-    letter-spacing: 0.5px;
+    border-radius: 20px; padding: 4px 13px;
+    font-size: 11px; color: var(--gold); font-weight: 700;
+    margin-bottom: 10px; letter-spacing: 0.5px;
   }
   .badge::before { content: '🔥'; font-size: 12px; }
 
   h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 52px;
-    line-height: 1.0;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
+    font-size: 50px; line-height: 1.0; letter-spacing: 2px;
+    margin-bottom: 8px;
     background: linear-gradient(135deg, #fff 0%, var(--tg) 55%, var(--gold) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
 
   .live-counter {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(34,158,217,0.1);
-    border: 1px solid rgba(34,158,217,0.2);
-    border-radius: 24px;
-    padding: 6px 16px;
-    margin: 8px 0 14px;
-    font-size: 13px;
-    font-weight: 600;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(34,158,217,0.1); border: 1px solid rgba(34,158,217,0.2);
+    border-radius: 24px; padding: 5px 15px;
+    margin: 6px 0 12px; font-size: 13px; font-weight: 600;
   }
-
   .live-dot {
-    width: 7px; height: 7px;
-    background: #22c55e;
-    border-radius: 50%;
+    width: 7px; height: 7px; background: #22c55e; border-radius: 50%;
     animation: pulse 1.5s ease-in-out infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.75); }
-  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.75);} }
 
-  /* Inline earnings */
-  .inline-earning {
-    margin-bottom: 14px;
-    min-height: 76px;
-    display: flex;
-    align-items: center;
-  }
+  /* ── INLINE EARNINGS ── */
+  .inline-earning { margin-bottom: 12px; min-height: 74px; display: flex; align-items: center; }
 
   .inline-earning-card {
-    width: 100%;
-    background: var(--card);
-    border: 1px solid rgba(255,215,0,0.2);
-    border-left: 3px solid var(--gold);
-    border-radius: 14px;
-    padding: 13px 15px;
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    width: 100%; background: var(--card);
+    border: 1px solid rgba(255,215,0,0.2); border-left: 3px solid var(--gold);
+    border-radius: 13px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; transform: translateY(8px) scale(0.98);
     transition: opacity 0.5s ease, transform 0.5s ease;
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
   }
   .inline-earning-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 2px;
+    content:''; position:absolute; top:0;left:0;right:0;height:2px;
     background: linear-gradient(90deg, var(--gold), var(--accent), var(--tg));
   }
-  .inline-earning-card.visible { opacity: 1; transform: translateY(0) scale(1); }
+  .inline-earning-card.visible { opacity:1; transform:translateY(0) scale(1); }
 
   .ie-avatar {
-    width: 42px; height: 42px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), var(--accent));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; flex-shrink: 0;
+    width:40px;height:40px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--accent));
+    display:flex;align-items:center;justify-content:center;
+    font-size:19px;flex-shrink:0;
   }
-
-  .ie-body { flex: 1; min-width: 0; }
-  .ie-name { font-weight: 600; font-size: 12px; color: var(--muted); margin-bottom: 1px; }
-
-  .ie-amount {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
-    letter-spacing: 1px;
-    color: var(--gold);
-    line-height: 1.1;
-  }
-
-  .ie-label { font-size: 11px; color: var(--muted); margin-top: 1px; }
-
+  .ie-body { flex:1;min-width:0; }
+  .ie-name { font-weight:600;font-size:12px;color:var(--muted);margin-bottom:1px; }
+  .ie-amount { font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--gold);line-height:1.1; }
+  .ie-label { font-size:11px;color:var(--muted);margin-top:1px; }
   .ie-badge {
-    background: rgba(34,197,94,0.12);
-    border: 1px solid rgba(34,197,94,0.3);
-    color: #22c55e;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
-    flex-shrink: 0;
+    background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);
+    color:#22c55e;font-size:11px;font-weight:700;
+    padding:4px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;
   }
 
-  /* Telegram button */
+  /* ── TELEGRAM BUTTON ── */
   .btn-telegram {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-    padding: 16px 24px;
-    background: linear-gradient(135deg, var(--tg) 0%, #1a7db0 100%);
-    color: white;
-    text-decoration: none;
-    border-radius: 14px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 18px;
-    font-weight: 800;
-    margin-bottom: 12px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(34,158,217,0.35);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    letter-spacing: 0.5px;
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    width:100%;padding:15px 24px;
+    background:linear-gradient(135deg,var(--tg) 0%,#1a7db0 100%);
+    color:white;text-decoration:none;border-radius:13px;
+    font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;
+    margin-bottom:11px;position:relative;overflow:hidden;
+    box-shadow:0 8px 32px rgba(34,158,217,0.35);
+    transition:transform 0.2s ease,box-shadow 0.2s ease;letter-spacing:0.5px;
   }
   .btn-telegram::before {
-    content: '';
-    position: absolute; top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-    animation: shimmer 2.5s infinite;
+    content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+    animation:shimmer 2.5s infinite;
   }
-  @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
-  .btn-telegram:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(34,158,217,0.5); }
+  .btn-telegram:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(34,158,217,0.5);}
+  .tg-icon{width:25px;height:25px;flex-shrink:0;}
+  .btn-label{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2;}
+  .btn-label small{font-size:11px;font-weight:400;opacity:0.85;}
 
-  .tg-icon { width: 26px; height: 26px; flex-shrink: 0; }
-  .btn-label { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; }
-  .btn-label small { font-size: 11px; font-weight: 400; opacity: 0.85; }
-
-  /* WhatsApp */
-  .whatsapp-section { text-align: center; margin-bottom: 14px; }
-  .whatsapp-divider {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 10px; color: var(--muted); font-size: 12px;
+  /* ── WHATSAPP ── */
+  .whatsapp-section{text-align:center;margin-bottom:12px;}
+  .whatsapp-divider{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:9px;color:var(--muted);font-size:12px;
   }
-  .whatsapp-divider::before,
-  .whatsapp-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
-
-  .btn-whatsapp {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 20px;
-    background: rgba(37,211,102,0.08);
-    border: 1px solid rgba(37,211,102,0.25);
-    color: var(--wa); text-decoration: none;
-    border-radius: 10px; font-size: 14px; font-weight: 600;
-    transition: all 0.2s ease;
+  .whatsapp-divider::before,.whatsapp-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
+  .btn-whatsapp{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 18px;
+    background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25);
+    color:var(--wa);text-decoration:none;border-radius:10px;
+    font-size:13px;font-weight:600;transition:all 0.2s ease;
   }
-  .btn-whatsapp:hover { background: rgba(37,211,102,0.15); }
-  .wa-icon { width: 18px; height: 18px; }
+  .btn-whatsapp:hover{background:rgba(37,211,102,0.15);}
+  .wa-icon{width:17px;height:17px;}
 
-  /* Trust row */
-  .trust-row {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px; margin-bottom: 16px;
+  /* ── TRUST ROW ── */
+  .trust-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:12px;}
+  .trust-item{
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);
+    border-radius:11px;padding:11px 8px;text-align:center;
   }
-  .trust-item {
-    background: var(--card);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px; padding: 12px 8px; text-align: center;
-  }
-  .trust-item .emoji { font-size: 20px; margin-bottom: 4px; }
-  .trust-item .val { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; margin-bottom: 2px; }
-  .trust-item .lbl { font-size: 10px; color: var(--muted); }
+  .trust-item .emoji{font-size:19px;margin-bottom:4px;}
+  .trust-item .val{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;margin-bottom:2px;}
+  .trust-item .lbl{font-size:10px;color:var(--muted);}
 
-  /* Footer */
-  .footer { text-align: center; font-size: 11px; color: var(--muted); line-height: 1.9; }
+  /* ── FOOTER ── */
+  .footer{text-align:center;font-size:11px;color:var(--muted);line-height:1.8;}
 
-  /* Animations */
-  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
-  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-  .d1 { animation-delay: 0.1s; } .d2 { animation-delay: 0.2s; }
-  .d3 { animation-delay: 0.3s; } .d4 { animation-delay: 0.4s; }
-  .d5 { animation-delay: 0.5s; }
+  /* ── ANIMATIONS ── */
+  .fade-up{opacity:0;transform:translateY(18px);animation:fadeUp 0.6s ease forwards;}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+  .d1{animation-delay:0.08s;}.d2{animation-delay:0.16s;}
+  .d3{animation-delay:0.24s;}.d4{animation-delay:0.32s;}
+  .d5{animation-delay:0.4s;}.d6{animation-delay:0.48s;}
 </style>
 </head>
 <body>
@@ -301,7 +264,12 @@
 
 <div class="container">
 
-  <div class="hero fade-up">
+  <div class="top-bar fade-up">
+    <div class="top-bar-dot"></div>
+    <div class="top-bar-text" id="topBarText">⭐ <span>Chioma A.</span> — "This is 100% legit, I just got paid!"</div>
+  </div>
+
+  <div class="hero fade-up d1">
     <div class="badge">LIMITED SLOTS AVAILABLE</div>
     <h1>GET PAID BY<br>PLAYING GAMES</h1>
     <div class="live-counter">
@@ -310,7 +278,7 @@
     </div>
   </div>
 
-  <div class="inline-earning fade-up d1">
+  <div class="inline-earning fade-up d2">
     <div class="inline-earning-card" id="inlineCard">
       <div class="ie-avatar" id="ieAvatar">💰</div>
       <div class="ie-body">
@@ -322,7 +290,7 @@
     </div>
   </div>
 
-  <a href="https://t.me/coachformate" class="btn-telegram fade-up d2">
+  <a href="https://t.me/coachformate" class="btn-telegram fade-up d3">
     <svg class="tg-icon" viewBox="0 0 24 24" fill="white">
       <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
     </svg>
@@ -332,7 +300,7 @@
     </div>
   </a>
 
-  <div class="whatsapp-section fade-up d3">
+  <div class="whatsapp-section fade-up d4">
     <div class="whatsapp-divider">Don't have Telegram?</div>
     <a href="https://chat.whatsapp.com/GsYD3KwYfSR6bXGyb5PYKb" class="btn-whatsapp">
       <svg class="wa-icon" viewBox="0 0 24 24" fill="#25D366">
@@ -342,7 +310,7 @@
     </a>
   </div>
 
-  <div class="trust-row fade-up d4">
+  <div class="trust-row fade-up d5">
     <div class="trust-item">
       <div class="emoji">🎮</div>
       <div class="val">30,000+</div>
@@ -360,7 +328,7 @@
     </div>
   </div>
 
-  <div class="footer fade-up d5">
+  <div class="footer fade-up d6">
     ✅ No experience needed &nbsp;•&nbsp; ✅ Works on any phone<br>
     ✅ Nigerians only &nbsp;•&nbsp; ✅ Withdraw anytime
   </div>
@@ -369,60 +337,121 @@
 
 <script>
   const names = [
-    'Chioma A.', 'Emeka O.', 'Fatima B.', 'Tunde L.', 'Ngozi C.',
-    'Bello M.', 'Amaka I.', 'Seun K.', 'Hauwa D.', 'Chidi N.',
-    'Yetunde F.', 'Musa A.', 'Blessing E.', 'Kola R.', 'Adaeze P.',
-    'Ibrahim S.', 'Folake T.', 'Uche W.', 'Zainab H.', 'Gbenga J.'
+    'Chioma A.','Emeka O.','Fatima B.','Tunde L.','Ngozi C.','Bello M.','Amaka I.','Seun K.',
+    'Hauwa D.','Chidi N.','Yetunde F.','Musa A.','Blessing E.','Kola R.','Adaeze P.',
+    'Ibrahim S.','Folake T.','Uche W.','Zainab H.','Gbenga J.','Sola M.','Kunle A.',
+    'Remi O.','Nkechi B.','Dapo F.','Shade T.','Ifeanyi C.','Aisha G.','Tobi L.',
+    'Bimpe A.','Kayode S.','Nneka J.','Leke O.','Funmi R.','Damilola K.','Rotimi E.',
+    'Yemi P.','Titi A.','Chibuzor N.','Bolade M.','Rasheed T.','Esther O.','Femi B.',
+    'Ifeoma C.','Lanre D.','Hadiza A.','Obinna K.','Morenike S.','Tope F.','Ejike L.',
+    'Adunola B.','Chukwudi O.','Fiyin A.','Gbemisola T.','Hakeem N.','Idowu R.',
+    'Joke M.','Kelechi P.','Lola S.','Mahmud A.','Nnamdi F.','Oge B.','Pelumi C.',
+    'Quadri T.','Remilekun O.','Stella A.','Tokunbo N.','Udoka M.','Voke S.',
+    'Wasiu F.','Xena A.','Yinka B.','Zubby O.','Abiodun C.','Bankole T.','Chiamaka R.',
+    'Dayo A.','Ebunoluwa N.','Farouk M.','Ginika S.','Halimat B.','Isioma T.',
+    'Jide O.','Kehinde A.','Lilian F.','Maryam C.','Nonso B.','Opeyemi R.',
+    'Patience A.','Qudus T.','Rufus N.','Shade O.','Taiwo M.','Ugochi S.',
+    'Victor A.','Wunmi F.','Yvonne B.','Zara C.','Adeola T.','Babatunde O.'
   ];
 
   const amounts = [
-    '₦55,000', '₦120,000', '₦87,500', '₦210,000', '₦75,000',
-    '₦340,000', '₦95,000', '₦1,200,000', '₦450,000', '₦3,000,000',
-    '₦68,000', '₦180,000', '₦2,500,000', '₦600,000', '₦155,000'
+    '₦55,000','₦120,000','₦87,500','₦210,000','₦75,000','₦340,000','₦95,000',
+    '₦1,200,000','₦450,000','₦3,000,000','₦68,000','₦180,000','₦2,500,000',
+    '₦600,000','₦155,000','₦430,000','₦790,000','₦62,000','₦1,800,000','₦310,000'
   ];
 
-  const emojis = ['🎮','💰','🎯','🏆','💵','🎲','🤑','🔥'];
+  const emojis = ['🎮','💰','🎯','🏆','💵','🎲','🤑','🔥','😍','✅'];
 
-  // Inline card
+  // ── REVIEW BAR ──
+  const reviews = [
+    n => `⭐ <span>${n}</span> — "This is 100% legit, I just got paid!"`,
+    n => `💬 <span>${n}</span> — "Wow this game is really nice, I'm addicted!"`,
+    n => `🙌 <span>${n}</span> — "Just withdrew my money safely, no stress!"`,
+    n => `😍 <span>${n}</span> — "Best thing I joined this year, already earning"`,
+    n => `🔥 <span>${n}</span> — "I thought it was fake but I got paid same day"`,
+    n => `✅ <span>${n}</span> — "Very legit, my friend referred me and we both earned"`,
+    n => `💸 <span>${n}</span> — "Easiest money I've ever made, games are fun too"`,
+    n => `🎮 <span>${n}</span> — "I play for 30 mins daily and withdraw weekly"`,
+    n => `😭 <span>${n}</span> — "I wish I joined earlier, don't sleep on this"`,
+    n => `🏆 <span>${n}</span> — "Finally something that actually pays in Nigeria"`,
+    n => `👏 <span>${n}</span> — "Received alert immediately after withdrawal request"`,
+    n => `💯 <span>${n}</span> — "No hidden charges, no stories, just straight payment"`,
+    n => `🤩 <span>${n}</span> — "The games are genuinely fun AND you get paid?!"`,
+    n => `✔️ <span>${n}</span> — "Tested it with small amount first, then went all in"`,
+  ];
+
+  let lastReviewIdx = -1;
+  function updateTopBar() {
+    const el = document.getElementById('topBarText');
+    el.style.opacity = '0';
+    setTimeout(() => {
+      let idx;
+      do { idx = Math.floor(Math.random() * reviews.length); } while (idx === lastReviewIdx);
+      lastReviewIdx = idx;
+      const name = names[Math.floor(Math.random() * names.length)];
+      el.innerHTML = reviews[idx](name);
+      el.style.transition = 'opacity 0.35s ease';
+      el.style.opacity = '1';
+    }, 350);
+  }
+  setTimeout(() => { updateTopBar(); setInterval(updateTopBar, 5000); }, 2000);
+
+  // ── INLINE EARNINGS CARD ──
   const card = document.getElementById('inlineCard');
-  let lastIdx = -1;
-
+  let lastNameIdx = -1;
   function updateInlineCard() {
     card.classList.remove('visible');
     setTimeout(() => {
       let idx;
-      do { idx = Math.floor(Math.random() * names.length); } while (idx === lastIdx);
-      lastIdx = idx;
+      do { idx = Math.floor(Math.random() * names.length); } while (idx === lastNameIdx);
+      lastNameIdx = idx;
       document.getElementById('ieAvatar').textContent = emojis[Math.floor(Math.random() * emojis.length)];
       document.getElementById('ieName').textContent = names[idx];
       document.getElementById('ieAmount').textContent = amounts[Math.floor(Math.random() * amounts.length)];
       card.classList.add('visible');
     }, 500);
   }
-
   setTimeout(() => { updateInlineCard(); setInterval(updateInlineCard, 4000); }, 800);
 
-  // Top toasts — join notifications
-  function showToast() {
-    const container = document.getElementById('toastContainer');
-    const name = names[Math.floor(Math.random() * names.length)];
-    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = `
-      <div class="toast-avatar">${emoji}</div>
-      <div class="toast-text">
-        <strong>${name}</strong> just joined the channel<br>
-        <span>a moment ago</span>
-      </div>`;
-    container.appendChild(toast);
-    setTimeout(() => toast.classList.add('show'), 50);
-    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3500);
+  // ── TOP TOASTS — overlapping join notifications ──
+  function showToast(delayMs) {
+    setTimeout(() => {
+      const container = document.getElementById('toastContainer');
+      const name = names[Math.floor(Math.random() * names.length)];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `
+        <div class="toast-avatar">${emoji}</div>
+        <div class="toast-text">
+          <strong>${name}</strong> just joined the channel<br>
+          <span>a moment ago</span>
+        </div>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.add('show'), 50);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+      }, 3500);
+    }, delayMs);
   }
 
-  setTimeout(() => { showToast(); setInterval(showToast, 7000); }, 5000);
+  function fireToastBatch() {
+    const isBatch = Math.random() < 0.35; // 35% chance of double/triple join
+    showToast(0);
+    if (isBatch) {
+      showToast(700); // second one comes in 0.7s later
+      if (Math.random() < 0.3) showToast(1400); // occasional third
+    }
+  }
 
-  // Live counter
+  // First batch after 3s, then random interval 5-10s
+  setTimeout(function loop() {
+    fireToastBatch();
+    setTimeout(loop, 5000 + Math.random() * 5000);
+  }, 3000);
+
+  // ── LIVE COUNTER ──
   let count = Math.floor(Math.random() * 15000) + 5000;
   document.getElementById('liveCount').textContent = count.toLocaleString();
   setInterval(() => {
@@ -431,4 +460,5 @@
   }, 6000);
 </script>
 </body>
-</html>
+  </html>
+  
