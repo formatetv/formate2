@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Join thousands of Nigerians making real money online with proven digital skills." />
+  <title>Formate — Earn Real Money Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      min-height: 100vh;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e2f2e9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 16px 20px 14px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    /* LIVE BADGE */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,168,68,0.08);
+      border: 1px solid rgba(0,168,68,0.25);
+      border-radius: 99px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #007a30;
+      margin-bottom: 10px;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #00a844;
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,168,68,0.4); }
+      50%       { box-shadow: 0 0 0 4px rgba(0,168,68,0); }
+    }
+
+    /* HEADING */
+    .heading { margin-bottom: 10px; }
+    .heading .pre {
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: #555;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .heading h1 {
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: #00a844;
+      line-height: 1.25;
+    }
+
+    /* SUBHEADING */
+    .divider-wrap { margin-bottom: 9px; }
+    .subhead {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #111;
+      display: inline-block;
+    }
+    .subhead::after {
+      content: '';
+      display: block;
+      margin-top: 3px;
+      height: 2px;
+      width: 100%;
+      background: #111;
+      border-radius: 2px;
+    }
+
+    /* CHECKLIST */
+    .checks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 11px;
+      text-align: left;
+    }
+    .checks li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #222;
+      line-height: 1.38;
+    }
+    .check-icon {
+      color: #00a844;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* COMMITMENT BOX */
+    .commit-box {
+      border-left: 4px solid #00a844;
+      background: #f3fbf6;
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-size: 0.81rem;
+      color: #1a3825;
+      line-height: 1.48;
+      margin-bottom: 11px;
+      text-align: left;
+    }
+
+    /* COUNTER */
+    .counter-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      color: #666;
+      margin-bottom: 14px;
+    }
+    .counter-number {
+      font-weight: 700;
+      font-size: 0.84rem;
+      color: #cc8800;
+    }
+
+    /* CTA BUTTON — animated glowing button */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 15px 13px;
+      background: #00a844;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      animation: glow-pulse 2s ease-in-out infinite;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% {
+        box-shadow:
+          0 0 8px rgba(0,168,68,0.5),
+          0 0 18px rgba(0,168,68,0.3),
+          0 4px 14px rgba(0,168,68,0.35);
+      }
+      50% {
+        box-shadow:
+          0 0 20px rgba(0,168,68,0.95),
+          0 0 45px rgba(0,168,68,0.65),
+          0 0 70px rgba(0,168,68,0.35),
+          0 6px 24px rgba(0,168,68,0.55);
+      }
+    }
+
+    .cta-btn:hover {
+      background: #008f3a;
+      transform: translateY(-1px);
+    }
+    .cta-btn:active { transform: translateY(0); }
+
+    .cta-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .cta-sub {
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 0.71rem;
+      color: #888;
+    }
+    .cta-sub span { color: #007a30; font-weight: 600; }
+
+    /* SOCIAL PROOF */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .proof-item {
+      font-size: 0.71rem;
+      color: #666;
+      font-weight: 500;
+    }
+    .proof-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: #ccc;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.67rem;
+      color: #bbb;
+    }
+
+    /* LOADING STATE */
+    .loading-state {
+      display: none;
+      font-size: 0.75rem;
+      color: #00a844;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      <span id="viewerCount">142</span> people viewing this right now
+    </div>
+
+    <div class="heading">
+      <span class="pre">In order to</span>
+      <h1>Make Real Money From <br> Your Phone...</h1>
+    </div>
+
+    <div class="divider-wrap">
+      <span class="subhead">You Will Need Just 3 Things</span>
+    </div>
+
+    <ul class="checks">
+      <li>
+        <span class="check-icon">✓</span>
+        <span>Any smartphone, tablet or laptop — that's all you need</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>Just 1–2 hours a day from anywhere you are</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>Zero experience required — we train you from scratch</span>
+      </li>
+    </ul>
+
+    <div class="commit-box">
+      ✅ YES! I have these 3 things and I am ready to start earning ₦50,000–₦200,000 monthly from my phone — train me!
+    </div>
+
+    <div class="counter-strip">
+      <span class="counter-number" id="joinCount">2,841</span>
+      <span>members already earning — limited slots left today</span>
+    </div>
+
+    <!-- UPDATED: Button instead of link, with bypass logic -->
+    <button id="ctaBtn" class="cta-btn">
+      💬 JOIN THE GROUP NOW
+    </button>
+
+    <div class="loading-state" id="loadingState">
+      Opening WhatsApp...
+    </div>
+
+    <p class="cta-sub">Free to join · <span>Slots closing soon</span> · No spam ever</p>
+
+    <div class="social-proof">
+      <div class="proof-item">🔒 100% Free</div>
+      <div class="proof-dot"></div>
+      <div class="proof-item">🇳🇬 Made for Nigerians</div>
+    </div>
+
+    <div class="footer">© 2025 Formate.com.ng — All rights reserved</div>
+
+  </div>
+
+  <script>
+    // ============================================
+    // EXTERNAL BROWSER BYPASS CODE
+    // ============================================
+    
+    const WHATSAPP_GROUP_LINK = "https://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP";
+    const ctaBtn = document.getElementById('ctaBtn');
+    const loadingState = document.getElementById('loadingState');
+
+    ctaBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      loadingState.style.display = 'block';
+      ctaBtn.disabled = true;
+      
+      // Detect if on TikTok's in-app browser
+      const isTikTokApp = /TikTok/.test(navigator.userAgent);
+      
+      if (isTikTokApp || window.location.href.includes('tiktok')) {
+        // METHOD 1: Intent-based redirect (Android) - MOST RELIABLE
+        // This forces Android to use system browser instead of in-app webview
+        const intentUrl = `intent://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP#Intent;scheme=https;package=com.whatsapp;end`;
+        
+        window.location.href = intentUrl;
+        
+        // Fallback if Intent doesn't work (for iOS or if app not installed)
+        setTimeout(() => {
+          // METHOD 2: Force new window with target _blank
+          const link = document.createElement('a');
+          link.href = WHATSAPP_GROUP_LINK;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, 300);
+      } else {
+        // Direct redirect if not in TikTok
+        window.location.href = WHATSAPP_GROUP_LINK;
+      }
+      
+      // Fallback timeout to ensure something happens
+      setTimeout(() => {
+        loadingState.style.display = 'none';
+        ctaBtn.disabled = false;
+      }, 2000);
+    });
+
+    // ============================================
+    // EXISTING ANIMATIONS (Keep your original code)
+    // ============================================
+    
+    const viewerEl = document.getElementById('viewerCount');
+    let viewers = 142;
+    setInterval(() => {
+      const delta = Math.floor(Math.random() * 5) - 2;
+      viewers = Math.max(120, Math.min(200, viewers + delta));
+      viewerEl.textContent = viewers;
+    }, 3000);
+
+    const joinEl = document.getElementById('joinCount');
+    let joins = 2841;
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        joins++;
+        joinEl.textContent = joins.toLocaleString();
+      }
+    }, 8000);
+  </script>
+
+</body>
+</html>
