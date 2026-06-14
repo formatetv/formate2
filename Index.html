@@ -1,276 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Paid By Playing Games</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --tg: #229ED9;
-    --wa: #25D366;
-    --bg: #0a0a12;
-    --card: #12121e;
-    --text: #f0f0ff;
-    --muted: #8888aa;
-    --gold: #FFD700;
-    --accent: #ff6b35;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Join thousands of Nigerians making real money online with proven digital skills." />
+  <title>Formate — Earn Real Money Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Outfit', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-  }
+    html, body {
+      height: 100%;
+      min-height: 100vh;
+    }
 
-  body::before {
-    content: '';
-    position: fixed;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background:
-      radial-gradient(ellipse at 20% 20%, rgba(34,158,217,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(255,107,53,0.07) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 60%);
-    animation: bgPulse 8s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-  }
-  @keyframes bgPulse { 0% { transform: scale(1); } 100% { transform: scale(1.1) rotate(3deg); } }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e2f2e9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
 
-  .container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 420px;
-    padding: 8px 18px 12px;
-  }
+    .card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 16px 20px 14px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+      text-align: center;
+    }
 
-  /* ── TOP TOASTS ── */
-  .toast-container {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 320px;
-    z-index: 100;
-    pointer-events: none;
-  }
+    /* LIVE BADGE */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,168,68,0.08);
+      border: 1px solid rgba(0,168,68,0.25);
+      border-radius: 99px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #007a30;
+      margin-bottom: 10px;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #00a844;
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,168,68,0.4); }
+      50%       { box-shadow: 0 0 0 4px rgba(0,168,68,0); }
+    }
 
-  .toast {
-    background: rgba(18,18,30,0.96);
-    border: 1px solid rgba(34,158,217,0.3);
-    border-left: 3px solid var(--tg);
-    border-radius: 10px;
-    padding: 8px 12px;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 12px;
-    opacity: 0;
-    transform: translateY(-14px);
-    transition: all 0.4s ease;
-    backdrop-filter: blur(10px);
-  }
-  .toast.show { opacity: 1; transform: translateY(0); }
-  .toast-avatar {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--tg), var(--accent));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; flex-shrink: 0;
-  }
-  .toast-text strong { color: var(--tg); }
-  .toast-text span { color: var(--muted); font-size: 11px; }
+    /* HEADING */
+    .heading { margin-bottom: 10px; }
+    .heading .pre {
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: #555;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .heading h1 {
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: #00a844;
+      line-height: 1.25;
+    }
 
-  /* ── TOP REVIEW BAR ── */
-  .top-bar {
-    background: linear-gradient(135deg, rgba(34,158,217,0.12), rgba(255,107,53,0.08), rgba(255,215,0,0.07));
-    border: 1px solid rgba(34,158,217,0.22);
-    border-radius: 11px;
-    padding: 9px 14px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-  }
-  .top-bar::before {
-    content: '';
-    position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
-    animation: shimmer 3s infinite;
-  }
-  @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+    /* SUBHEADING */
+    .divider-wrap { margin-bottom: 9px; }
+    .subhead {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #111;
+      display: inline-block;
+    }
+    .subhead::after {
+      content: '';
+      display: block;
+      margin-top: 3px;
+      height: 2px;
+      width: 100%;
+      background: #111;
+      border-radius: 2px;
+    }
 
-  .top-bar-dot {
-    width: 7px; height: 7px; background: #ff4444;
-    border-radius: 50%; flex-shrink: 0;
-    animation: redpulse 1.2s ease-in-out infinite;
-    box-shadow: 0 0 6px rgba(255,68,68,0.6);
-  }
-  @keyframes redpulse {
-    0%,100% { opacity:1; transform:scale(1); box-shadow: 0 0 6px rgba(255,68,68,0.6); }
-    50% { opacity:0.5; transform:scale(0.75); box-shadow: 0 0 2px rgba(255,68,68,0.2); }
-  }
+    /* CHECKLIST */
+    .checks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 11px;
+      text-align: left;
+    }
+    .checks li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #222;
+      line-height: 1.38;
+    }
+    .check-icon {
+      color: #00a844;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
 
-  .top-bar-text {
-    flex: 1; overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #dde0f5;
-    transition: opacity 0.35s ease;
-  }
-  .top-bar-text span { color: var(--gold); font-weight: 700; }
+    /* COMMITMENT BOX */
+    .commit-box {
+      border-left: 4px solid #00a844;
+      background: #f3fbf6;
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-size: 0.81rem;
+      color: #1a3825;
+      line-height: 1.48;
+      margin-bottom: 11px;
+      text-align: left;
+    }
 
-  /* ── HERO ── */
-  .hero { text-align: center; padding: 6px 0 10px; }
+    /* COUNTER */
+    .counter-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      color: #666;
+      margin-bottom: 14px;
+    }
+    .counter-number {
+      font-weight: 700;
+      font-size: 0.84rem;
+      color: #cc8800;
+    }
 
-  .badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(255,215,0,0.1);
-    border: 1px solid rgba(255,215,0,0.3);
-    border-radius: 20px; padding: 4px 13px;
-    font-size: 11px; color: var(--gold); font-weight: 700;
-    margin-bottom: 10px; letter-spacing: 0.5px;
-  }
-  .badge::before { content: '🔥'; font-size: 12px; }
+    /* CTA BUTTON — animated glowing button */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 15px 13px;
+      background: #00a844;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      animation: glow-pulse 2s ease-in-out infinite;
+      transition: background 0.2s, transform 0.15s;
+    }
 
-  h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 50px; line-height: 1.0; letter-spacing: 2px;
-    margin-bottom: 8px;
-    background: linear-gradient(135deg, #fff 0%, var(--tg) 55%, var(--gold) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
+    @keyframes glow-pulse {
+      0%, 100% {
+        box-shadow:
+          0 0 8px rgba(0,168,68,0.5),
+          0 0 18px rgba(0,168,68,0.3),
+          0 4px 14px rgba(0,168,68,0.35);
+      }
+      50% {
+        box-shadow:
+          0 0 20px rgba(0,168,68,0.95),
+          0 0 45px rgba(0,168,68,0.65),
+          0 0 70px rgba(0,168,68,0.35),
+          0 6px 24px rgba(0,168,68,0.55);
+      }
+    }
 
-  .live-counter {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(34,158,217,0.1); border: 1px solid rgba(34,158,217,0.2);
-    border-radius: 24px; padding: 5px 15px;
-    margin: 6px 0 12px; font-size: 13px; font-weight: 600;
-  }
-  .live-dot {
-    width: 7px; height: 7px; background: #22c55e; border-radius: 50%;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.75);} }
+    .cta-btn:hover {
+      background: #008f3a;
+      transform: translateY(-1px);
+    }
+    .cta-btn:active { transform: translateY(0); }
 
-  /* ── INLINE EARNINGS ── */
-  .inline-earning { margin-bottom: 12px; min-height: 74px; display: flex; align-items: center; }
+    .cta-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
 
-  .inline-earning-card {
-    width: 100%; background: var(--card);
-    border: 1px solid rgba(255,215,0,0.2); border-left: 3px solid var(--gold);
-    border-radius: 13px; padding: 12px 14px;
-    display: flex; align-items: center; gap: 12px;
-    opacity: 0; transform: translateY(8px) scale(0.98);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    position: relative; overflow: hidden;
-  }
-  .inline-earning-card::before {
-    content:''; position:absolute; top:0;left:0;right:0;height:2px;
-    background: linear-gradient(90deg, var(--gold), var(--accent), var(--tg));
-  }
-  .inline-earning-card.visible { opacity:1; transform:translateY(0) scale(1); }
+    .cta-sub {
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 0.71rem;
+      color: #888;
+    }
+    .cta-sub span { color: #007a30; font-weight: 600; }
 
-  .ie-avatar {
-    width:40px;height:40px;border-radius:50%;
-    background:linear-gradient(135deg,var(--gold),var(--accent));
-    display:flex;align-items:center;justify-content:center;
-    font-size:19px;flex-shrink:0;
-  }
-  .ie-body { flex:1;min-width:0; }
-  .ie-name { font-weight:600;font-size:12px;color:var(--muted);margin-bottom:1px; }
-  .ie-amount { font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--gold);line-height:1.1; }
-  .ie-label { font-size:11px;color:var(--muted);margin-top:1px; }
-  .ie-badge {
-    background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);
-    color:#22c55e;font-size:11px;font-weight:700;
-    padding:4px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;
-  }
+    /* SOCIAL PROOF */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .proof-item {
+      font-size: 0.71rem;
+      color: #666;
+      font-weight: 500;
+    }
+    .proof-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: #ccc;
+    }
 
-  /* ── WHATSAPP BUTTON (NOW PRIMARY) ── */
-  .btn-whatsapp-primary {
-    display:flex;align-items:center;justify-content:center;gap:12px;
-    width:100%;padding:15px 24px;
-    background:linear-gradient(135deg,var(--wa) 0%,#1e9f5d 100%);
-    color:white;text-decoration:none;border-radius:13px;
-    font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;
-    margin-bottom:11px;position:relative;overflow:hidden;
-    box-shadow:0 0 20px rgba(37,211,102,0.5), 0 8px 32px rgba(37,211,102,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
-    transition:transform 0.2s ease,box-shadow 0.2s ease;letter-spacing:0.5px;
-  }
-  .btn-whatsapp-primary::before {
-    content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
-    animation:shimmer 2.5s infinite;
-  }
-  .btn-whatsapp-primary::after {
-    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-    background:radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
-    pointer-events:none;border-radius:13px;
-  }
-  .btn-whatsapp-primary:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(37,211,102,0.7), 0 12px 40px rgba(37,211,102,0.5), inset 0 1px 0 rgba(255,255,255,0.3);}
-  .wa-icon-primary{width:25px;height:25px;flex-shrink:0;}
-  .btn-label{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2;}
-  .btn-label small{font-size:11px;font-weight:400;opacity:0.85;}
-  .btn-label {
-    text-shadow: 0 0 10px rgba(255,255,255,0.3), 0 0 20px rgba(37,211,102,0.4);
-  }
+    /* FOOTER */
+    .footer {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.67rem;
+      color: #bbb;
+    }
 
-  /* ── TELEGRAM (NOW SECONDARY) ── */
-  .telegram-section{text-align:center;margin-bottom:12px;}
-  .telegram-divider{
-    display:flex;align-items:center;gap:12px;
-    margin-bottom:9px;color:var(--muted);font-size:12px;
-  }
-  .telegram-divider::before,.telegram-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
-  .btn-telegram-secondary{
-    display:inline-flex;align-items:center;gap:8px;padding:10px 18px;
-    background:rgba(34,158,217,0.08);border:1px solid rgba(34,158,217,0.25);
-    color:var(--tg);text-decoration:none;border-radius:10px;
-    font-size:13px;font-weight:600;transition:all 0.2s ease;
-  }
-  .btn-telegram-secondary:hover{background:rgba(34,158,217,0.15);}
-  .tg-icon-secondary{width:17px;height:17px;}
-
-  /* ── TRUST ROW ── */
-  .trust-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:12px;}
-  .trust-item{
-    background:var(--card);border:1px solid rgba(255,255,255,0.06);
-    border-radius:11px;padding:11px 8px;text-align:center;
-  }
-  .trust-item .emoji{font-size:19px;margin-bottom:4px;}
-  .trust-item .val{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;margin-bottom:2px;}
-  .trust-item .lbl{font-size:10px;color:var(--muted);}
-
-  /* ── FOOTER ── */
-  .footer{text-align:center;font-size:11px;color:var(--muted);line-height:1.8;}
-
-  /* ── ANIMATIONS ── */
-  .fade-up{opacity:0;transform:translateY(18px);animation:fadeUp 0.6s ease forwards;}
-  @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
-  .d1{animation-delay:0.08s;}.d2{animation-delay:0.16s;}
-  .d3{animation-delay:0.24s;}.d4{animation-delay:0.32s;}
-  .d5{animation-delay:0.4s;}.d6{animation-delay:0.48s;}
-</style>
+    /* LOADING STATE */
+    .loading-state {
+      display: none;
+      font-size: 0.75rem;
+      color: #00a844;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
 
-<div class="toast-container" id="toastContainer"></div>
+  <div class="card">
 
-<div class="container">
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      <span id="viewerCount">142</span> people viewing this right now
+    </div>
+
+    <div class="heading">
+      <span class="pre">In order to</span>
+      <h1>Make Real Money From <br> Your Phone...</h1>
+    </div>
+
+    <div class="divider-wrap">
+      <span class="subhead">You Will Need Just 3 Things</span>
+    </div>
+
+    <ul class="checks">
+      <li>
+        <span class="check-icon">✓</span>
+        <span>Any smartphone, tablet or laptop — that's all you need</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>Just 1–2 hours a day from anywhere you are</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>Zero experience required — we train you from scratch</span>
+      </li>
+    </ul>
+
+    <div class="commit-box">
+      ✅ YES! I have these 3 things and I am ready to start earning ₦50,000–₦200,000 monthly from my phone — train me!
+    </div>
+
+    <div class="counter-strip">
+      <span class="counter-number" id="joinCount">2,841</span>
+      <span>members already earning — limited slots left today</span>
+    </div>
+
+    <!-- UPDATED: Button instead of link, with bypass logic -->
+    <button id="ctaBtn" class="cta-btn">
+      💬 JOIN THE GROUP NOW
+    </button>
+
+    <div class="loading-state" id="loadingState">
+      Opening WhatsApp...
+    </div>
+
+    <p class="cta-sub">Free to join · <span>Slots closing soon</span> · No spam ever</p>
+
+    <div class="social-proof">
+      <div class="proof-item">🔒 100% Free</div>
+      <div class="proof-dot"></div>
+      <div class="proof-item">🇳🇬 Made for Nigerians</div>
+    </div>
+
+    <div class="footer">© 2025 Formate.com.ng — All rights reserved</div>
+
+  </div>
+
+  <script>
+    // ============================================
+    // EXTERNAL BROWSER BYPASS CODE
+    // ============================================
+    
+    const WHATSAPP_GROUP_LINK = "https://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP";
+    const ctaBtn = document.getElementById('ctaBtn');
+    const loadingState = document.getElementById('loadingState');
+
+    ctaBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      loadingState.style.display = 'block';
+      ctaBtn.disabled = true;
+      
+      // Detect if on TikTok's in-app browser
+      const isTikTokApp = /TikTok/.test(navigator.userAgent);
+      
+      if (isTikTokApp || window.location.href.includes('tiktok')) {
+        // METHOD 1: Intent-based redirect (Android) - MOST RELIABLE
+        // This forces Android to use system browser instead of in-app webview
+        const intentUrl = `intent://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP#Intent;scheme=https;package=com.whatsapp;end`;
+        
+        window.location.href = intentUrl;
+        
+        // Fallback if Intent doesn't work (for iOS or if app not installed)
+        setTimeout(() => {
+          // METHOD 2: Force new window with target _blank
+          const link = document.createElement('a');
+          link.href = WHATSAPP_GROUP_LINK;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, 300);
+      } else {
+        // Direct redirect if not in TikTok
+        window.location.href = WHATSAPP_GROUP_LINK;
+      }
+      
+      // Fallback timeout to ensure something happens
+      setTimeout(() => {
+        loadingState.style.display = 'none';
+        ctaBtn.disabled = false;
+      }, 2000);
+    });
+
+    // ============================================
+    // EXISTING ANIMATIONS (Keep your original code)
+    // ============================================
+    
+    const viewerEl = document.getElementById('viewerCount');
+    let viewers = 142;
+    setInterval(() => {
+      const delta = Math.floor(Math.random() * 5) - 2;
+      viewers = Math.max(120, Math.min(200, viewers + delta));
+      viewerEl.textContent = viewers;
+    }, 3000);
+
+    const joinEl = document.getElementById('joinCount');
+    let joins = 2841;
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        joins++;
+        joinEl.textContent = joins.toLocaleString();
+      }
+    }, 8000);
+  </script>
+
+</body>
+</html>
+
 
   <div class="top-bar fade-up">
     <div class="top-bar-dot"></div>
