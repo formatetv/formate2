@@ -1,378 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Join thousands of Nigerians making real money online with proven digital skills." />
-  <title>Formate — Earn Real Money Online</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Paid By Playing Games</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tg: #229ED9;
+    --wa: #25D366;
+    --bg: #0a0a12;
+    --card: #12121e;
+    --text: #f0f0ff;
+    --muted: #8888aa;
+    --gold: #FFD700;
+    --accent: #ff6b35;
+  }
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body {
-      height: 100%;
-      min-height: 100vh;
-    }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+  }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #e2f2e9;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-    }
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(34,158,217,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(255,107,53,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 60%);
+    animation: bgPulse 8s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes bgPulse { 0% { transform: scale(1); } 100% { transform: scale(1.1) rotate(3deg); } }
 
-    .card {
-      background: #fff;
-      border-radius: 22px;
-      padding: 16px 20px 14px;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.08);
-      text-align: center;
-    }
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    padding: 8px 18px 12px;
+  }
 
-    /* LIVE BADGE */
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0,168,68,0.08);
-      border: 1px solid rgba(0,168,68,0.25);
-      border-radius: 99px;
-      padding: 4px 12px;
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: #007a30;
-      margin-bottom: 10px;
-    }
-    .live-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #00a844;
-      animation: pulse-dot 1.5s ease-in-out infinite;
-    }
-    @keyframes pulse-dot {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(0,168,68,0.4); }
-      50%       { box-shadow: 0 0 0 4px rgba(0,168,68,0); }
-    }
+  /* ── TOP TOASTS ── */
+  .toast-container {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    z-index: 100;
+    pointer-events: none;
+  }
 
-    /* HEADING */
-    .heading { margin-bottom: 10px; }
-    .heading .pre {
-      font-size: 0.83rem;
-      font-weight: 500;
-      color: #555;
-      display: block;
-      margin-bottom: 2px;
-    }
-    .heading h1 {
-      font-size: 1.28rem;
-      font-weight: 800;
-      color: #00a844;
-      line-height: 1.25;
-    }
+  .toast {
+    background: rgba(18,18,30,0.96);
+    border: 1px solid rgba(34,158,217,0.3);
+    border-left: 3px solid var(--tg);
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
+    opacity: 0;
+    transform: translateY(-14px);
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--tg), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0;
+  }
+  .toast-text strong { color: var(--tg); }
+  .toast-text span { color: var(--muted); font-size: 11px; }
 
-    /* SUBHEADING */
-    .divider-wrap { margin-bottom: 9px; }
-    .subhead {
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: #111;
-      display: inline-block;
-    }
-    .subhead::after {
-      content: '';
-      display: block;
-      margin-top: 3px;
-      height: 2px;
-      width: 100%;
-      background: #111;
-      border-radius: 2px;
-    }
+  /* ── TOP REVIEW BAR ── */
+  .top-bar {
+    background: linear-gradient(135deg, rgba(34,158,217,0.12), rgba(255,107,53,0.08), rgba(255,215,0,0.07));
+    border: 1px solid rgba(34,158,217,0.22);
+    border-radius: 11px;
+    padding: 9px 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+  }
+  .top-bar::before {
+    content: '';
+    position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+    animation: shimmer 3s infinite;
+  }
+  @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
 
-    /* CHECKLIST */
-    .checks {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      margin-bottom: 11px;
-      text-align: left;
-    }
-    .checks li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 0.85rem;
-      color: #222;
-      line-height: 1.38;
-    }
-    .check-icon {
-      color: #00a844;
-      font-size: 0.9rem;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+  .top-bar-dot {
+    width: 7px; height: 7px; background: #ff4444;
+    border-radius: 50%; flex-shrink: 0;
+    animation: redpulse 1.2s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255,68,68,0.6);
+  }
+  @keyframes redpulse {
+    0%,100% { opacity:1; transform:scale(1); box-shadow: 0 0 6px rgba(255,68,68,0.6); }
+    50% { opacity:0.5; transform:scale(0.75); box-shadow: 0 0 2px rgba(255,68,68,0.2); }
+  }
 
-    /* COMMITMENT BOX */
-    .commit-box {
-      border-left: 4px solid #00a844;
-      background: #f3fbf6;
-      border-radius: 6px;
-      padding: 9px 12px;
-      font-size: 0.81rem;
-      color: #1a3825;
-      line-height: 1.48;
-      margin-bottom: 11px;
-      text-align: left;
-    }
+  .top-bar-text {
+    flex: 1; overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #dde0f5;
+    transition: opacity 0.35s ease;
+  }
+  .top-bar-text span { color: var(--gold); font-weight: 700; }
 
-    /* COUNTER */
-    .counter-strip {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 0.74rem;
-      color: #666;
-      margin-bottom: 14px;
-    }
-    .counter-number {
-      font-weight: 700;
-      font-size: 0.84rem;
-      color: #cc8800;
-    }
+  /* ── HERO ── */
+  .hero { text-align: center; padding: 6px 0 10px; }
 
-    /* CTA BUTTON — animated glowing button */
-    .cta-btn {
-      display: block;
-      width: 100%;
-      padding: 15px 13px;
-      background: #00a844;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 0.04em;
-      text-align: center;
-      text-decoration: none;
-      border: none;
-      border-radius: 10px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      animation: glow-pulse 2s ease-in-out infinite;
-      transition: background 0.2s, transform 0.15s;
-    }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,215,0,0.1);
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 20px; padding: 4px 13px;
+    font-size: 11px; color: var(--gold); font-weight: 700;
+    margin-bottom: 10px; letter-spacing: 0.5px;
+  }
+  .badge::before { content: '🔥'; font-size: 12px; }
 
-    @keyframes glow-pulse {
-      0%, 100% {
-        box-shadow:
-          0 0 8px rgba(0,168,68,0.5),
-          0 0 18px rgba(0,168,68,0.3),
-          0 4px 14px rgba(0,168,68,0.35);
-      }
-      50% {
-        box-shadow:
-          0 0 20px rgba(0,168,68,0.95),
-          0 0 45px rgba(0,168,68,0.65),
-          0 0 70px rgba(0,168,68,0.35),
-          0 6px 24px rgba(0,168,68,0.55);
-      }
-    }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 50px; line-height: 1.0; letter-spacing: 2px;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff 0%, var(--tg) 55%, var(--gold) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
 
-    .cta-btn:hover {
-      background: #008f3a;
-      transform: translateY(-1px);
-    }
-    .cta-btn:active { transform: translateY(0); }
+  .live-counter {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(34,158,217,0.1); border: 1px solid rgba(34,158,217,0.2);
+    border-radius: 24px; padding: 5px 15px;
+    margin: 6px 0 12px; font-size: 13px; font-weight: 600;
+  }
+  .live-dot {
+    width: 7px; height: 7px; background: #22c55e; border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.75);} }
 
-    .cta-btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
+  /* ── INLINE EARNINGS ── */
+  .inline-earning { margin-bottom: 12px; min-height: 74px; display: flex; align-items: center; }
 
-    .cta-sub {
-      margin-bottom: 10px;
-      text-align: center;
-      font-size: 0.71rem;
-      color: #888;
-    }
-    .cta-sub span { color: #007a30; font-weight: 600; }
+  .inline-earning-card {
+    width: 100%; background: var(--card);
+    border: 1px solid rgba(255,215,0,0.2); border-left: 3px solid var(--gold);
+    border-radius: 13px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; transform: translateY(8px) scale(0.98);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: relative; overflow: hidden;
+  }
+  .inline-earning-card::before {
+    content:''; position:absolute; top:0;left:0;right:0;height:2px;
+    background: linear-gradient(90deg, var(--gold), var(--accent), var(--tg));
+  }
+  .inline-earning-card.visible { opacity:1; transform:translateY(0) scale(1); }
 
-    /* SOCIAL PROOF */
-    .social-proof {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    .proof-item {
-      font-size: 0.71rem;
-      color: #666;
-      font-weight: 500;
-    }
-    .proof-dot {
-      width: 3px; height: 3px;
-      border-radius: 50%;
-      background: #ccc;
-    }
+  .ie-avatar {
+    width:40px;height:40px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--accent));
+    display:flex;align-items:center;justify-content:center;
+    font-size:19px;flex-shrink:0;
+  }
+  .ie-body { flex:1;min-width:0; }
+  .ie-name { font-weight:600;font-size:12px;color:var(--muted);margin-bottom:1px; }
+  .ie-amount { font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--gold);line-height:1.1; }
+  .ie-label { font-size:11px;color:var(--muted); }
+  .ie-badge { font-weight:700;font-size:11px;color:#22c55e;text-align:right;flex-shrink:0; }
 
-    /* FOOTER */
-    .footer {
-      margin-top: 10px;
-      text-align: center;
-      font-size: 0.67rem;
-      color: #bbb;
-    }
+  /* ── CTA BUTTONS ── */
+  .btn-whatsapp-primary, .btn-telegram-secondary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 15px 18px;
+    border: none;
+    border-radius: 13px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+  }
 
-    /* LOADING STATE */
-    .loading-state {
-      display: none;
-      font-size: 0.75rem;
-      color: #00a844;
-      margin-top: 10px;
-      font-weight: 500;
-    }
-  </style>
+  .btn-whatsapp-primary {
+    background: linear-gradient(135deg, var(--wa), #1ba850);
+    color: white;
+    margin-bottom: 8px;
+  }
+  .btn-whatsapp-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,0.35); }
+  .btn-whatsapp-primary:active { transform: translateY(0); }
+
+  .btn-telegram-secondary {
+    background: var(--card);
+    border: 1.5px solid var(--tg);
+    color: var(--tg);
+  }
+  .btn-telegram-secondary:hover { background: rgba(34,158,217,0.1); }
+
+  .wa-icon-primary, .tg-icon-secondary {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .btn-label {
+    text-align: left;
+    flex: 1;
+  }
+  .btn-label small {
+    display: block;
+    font-size: 11px;
+    opacity: 0.85;
+    margin-bottom: 2px;
+  }
+
+  /* ── TELEGRAM SECTION ── */
+  .telegram-section {
+    margin-bottom: 12px;
+  }
+  .telegram-divider {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* ── TRUST ROW ── */
+  .trust-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .trust-item {
+    text-align: center;
+    flex: 1;
+  }
+  .trust-item .emoji {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .trust-item .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .trust-item .lbl {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  @keyframes fadeUpIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up.in { animation: fadeUpIn 0.6s ease forwards; }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.2s; }
+  .d3 { animation-delay: 0.3s; }
+  .d4 { animation-delay: 0.4s; }
+  .d5 { animation-delay: 0.5s; }
+  .d6 { animation-delay: 0.6s; }
+</style>
 </head>
 <body>
 
-  <div class="card">
+<div class="toast-container" id="toastContainer"></div>
 
-    <div class="live-badge">
-      <span class="live-dot"></span>
-      <span id="viewerCount">142</span> people viewing this right now
-    </div>
+<div class="container">
 
-    <div class="heading">
-      <span class="pre">In order to</span>
-      <h1>Make Real Money From <br> Your Phone...</h1>
-    </div>
-
-    <div class="divider-wrap">
-      <span class="subhead">You Will Need Just 3 Things</span>
-    </div>
-
-    <ul class="checks">
-      <li>
-        <span class="check-icon">✓</span>
-        <span>Any smartphone, tablet or laptop — that's all you need</span>
-      </li>
-      <li>
-        <span class="check-icon">✓</span>
-        <span>Just 1–2 hours a day from anywhere you are</span>
-      </li>
-      <li>
-        <span class="check-icon">✓</span>
-        <span>Zero experience required — we train you from scratch</span>
-      </li>
-    </ul>
-
-    <div class="commit-box">
-      ✅ YES! I have these 3 things and I am ready to start earning ₦50,000–₦200,000 monthly from my phone — train me!
-    </div>
-
-    <div class="counter-strip">
-      <span class="counter-number" id="joinCount">2,841</span>
-      <span>members already earning — limited slots left today</span>
-    </div>
-
-    <!-- UPDATED: Button instead of link, with bypass logic -->
-    <button id="ctaBtn" class="cta-btn">
-      💬 JOIN THE GROUP NOW
-    </button>
-
-    <div class="loading-state" id="loadingState">
-      Opening WhatsApp...
-    </div>
-
-    <p class="cta-sub">Free to join · <span>Slots closing soon</span> · No spam ever</p>
-
-    <div class="social-proof">
-      <div class="proof-item">🔒 100% Free</div>
-      <div class="proof-dot"></div>
-      <div class="proof-item">🇳🇬 Made for Nigerians</div>
-    </div>
-
-    <div class="footer">© 2025 Formate.com.ng — All rights reserved</div>
-
+  <div class="top-bar fade-up d0">
+    <div class="top-bar-dot"></div>
+    <div class="top-bar-text" id="topBarText">⭐ <span>Chioma A.</span> — "This is 100% legit, I just got paid!"</div>
   </div>
 
-  <script>
-    // ============================================
-    // EXTERNAL BROWSER BYPASS CODE
-    // ============================================
-    
-    const WHATSAPP_GROUP_LINK = "https://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP";
-    const ctaBtn = document.getElementById('ctaBtn');
-    const loadingState = document.getElementById('loadingState');
+  <div class="hero fade-up d1">
+    <div class="badge">LIMITED SLOTS AVAILABLE</div>
+    <h1>GET PAID BY<br>PLAYING GAMES</h1>
+    <div class="live-counter">
+      <div class="live-dot"></div>
+      <span id="liveCount">...</span> Nigerians Playing Now
+    </div>
+  </div>
 
-    ctaBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      // Show loading state
-      loadingState.style.display = 'block';
-      ctaBtn.disabled = true;
-      
-      // Detect if on TikTok's in-app browser
-      const isTikTokApp = /TikTok/.test(navigator.userAgent);
-      
-      if (isTikTokApp || window.location.href.includes('tiktok')) {
-        // METHOD 1: Intent-based redirect (Android) - MOST RELIABLE
-        // This forces Android to use system browser instead of in-app webview
-        const intentUrl = `intent://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP#Intent;scheme=https;package=com.whatsapp;end`;
-        
-        window.location.href = intentUrl;
-        
-        // Fallback if Intent doesn't work (for iOS or if app not installed)
-        setTimeout(() => {
-          // METHOD 2: Force new window with target _blank
-          const link = document.createElement('a');
-          link.href = WHATSAPP_GROUP_LINK;
-          link.target = '_blank';
-          link.rel = 'noopener noreferrer';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        }, 300);
-      } else {
-        // Direct redirect if not in TikTok
-        window.location.href = WHATSAPP_GROUP_LINK;
-      }
-      
-      // Fallback timeout to ensure something happens
+  <div class="inline-earning fade-up d2">
+    <div class="inline-earning-card" id="inlineCard">
+      <div class="ie-avatar" id="ieAvatar">💰</div>
+      <div class="ie-body">
+        <div class="ie-name" id="ieName">Loading...</div>
+        <div class="ie-amount" id="ieAmount">₦—</div>
+        <div class="ie-label">just withdrew to their bank</div>
+      </div>
+      <div class="ie-badge">PAID ✓</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       WHATSAPP BUTTON WITH BYPASS CODE
+       ═══════════════════════════════════════ -->
+  <button id="whatsappBtn" class="btn-whatsapp-primary fade-up d3">
+    <svg class="wa-icon-primary" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+    </svg>
+    <div class="btn-label">
+      <small>Join for FREE</small>
+      JOIN THE GROUP NOW
+    </div>
+  </button>
+
+  <div class="telegram-section fade-up d4">
+    <div class="telegram-divider">Don't have WhatsApp?</div>
+    <a href="https://t.me/coachformate" class="btn-telegram-secondary">
+      <svg class="tg-icon-secondary" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+      </svg>
+      Join on Telegram instead
+    </a>
+  </div>
+
+  <div class="trust-row fade-up d5">
+    <div class="trust-item">
+      <div class="emoji">🎮</div>
+      <div class="val">30,000+</div>
+      <div class="lbl">Members</div>
+    </div>
+    <div class="trust-item">
+      <div class="emoji">💸</div>
+      <div class="val">Daily</div>
+      <div class="lbl">Payouts</div>
+    </div>
+    <div class="trust-item">
+      <div class="emoji">📱</div>
+      <div class="val">100%</div>
+      <div class="lbl">Free to Join</div>
+    </div>
+  </div>
+
+  <div class="footer fade-up d6">
+    ✅ No experience needed &nbsp;•&nbsp; ✅ Works on any phone<br>
+    ✅ Nigerians only &nbsp;•&nbsp; ✅ Withdraw anytime
+  </div>
+
+</div>
+
+<script>
+  // ═══════════════════════════════════════════════════════════════════
+  // WHATSAPP BYPASS CODE — Forces external browser instead of TikTok webview
+  // ═══════════════════════════════════════════════════════════════════
+  
+  const WHATSAPP_GROUP_LINK = "https://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP";
+  const whatsappBtn = document.getElementById('whatsappBtn');
+
+  whatsappBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // Detect if user is on TikTok's in-app browser
+    const isTikTokApp = /TikTok/.test(navigator.userAgent);
+
+    if (isTikTokApp) {
+      // METHOD 1: Android Intent — Forces system browser (MOST RELIABLE)
+      // This bypasses TikTok's webview completely
+      const intentUrl = `intent://chat.whatsapp.com/KgUuS5UFmTDEpXcJkLwZNP#Intent;scheme=https;package=com.whatsapp;end`;
+      window.location.href = intentUrl;
+
+      // METHOD 2: Fallback for iOS and edge cases
       setTimeout(() => {
-        loadingState.style.display = 'none';
-        ctaBtn.disabled = false;
-      }, 2000);
-    });
+        const link = document.createElement('a');
+        link.href = WHATSAPP_GROUP_LINK;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }, 300);
+    } else {
+      // Not on TikTok — direct redirect
+      window.location.href = WHATSAPP_GROUP_LINK;
+    }
+  });
 
-    // ============================================
-    // EXISTING ANIMATIONS (Keep your original code)
-    // ============================================
-    
-    const viewerEl = document.getElementById('viewerCount');
-    let viewers = 142;
-    setInterval(() => {
-      const delta = Math.floor(Math.random() * 5) - 2;
-      viewers = Math.max(120, Math.min(200, viewers + delta));
-      viewerEl.textContent = viewers;
-    }, 3000);
+  // ═══════════════════════════════════════════════════════════════════
+  // ORIGINAL PAGE ANIMATIONS (All your existing code below)
+  // ═══════════════════════════════════════════════════════════════════
 
-    const joinEl = document.getElementById('joinCount');
-    let joins = 2841;
-    setInterval(() => {
-      if (Math.random() > 0.7) {
-        joins++;
-        joinEl.textContent = joins.toLocaleString();
-      }
-    }, 8000);
-  </script>
+  const names = [
+    'Chioma A.','Emeka O.','Fatima B.','Tunde L.','Ngozi C.','Bello M.','Amaka I.','Seun K.',
+    'Hauwa D.','Chidi N.','Yetunde F.','Musa A.','Blessing E.','Kola R.','Adaeze P.',
+    'Ibrahim S.','Folake T.','Uche W.','Zainab H.','Gbenga J.','Sola M.','Kunle A.',
+    'Remi O.','Nkechi B.','Dapo F.','Shade T.','Ifeanyi C.','Aisha G.','Tobi L.',
+    'Bimpe A.','Kayode S.','Nneka J.','Leke O.','Funmi R.','Damilola K.','Rotimi E.',
+    'Yemi P.','Titi A.','Chibuzor N.','Bolade M.','Rasheed T.','Esther O.','Femi B.',
+    'Ifeoma C.','Lanre D.','Hadiza A.','Obinna K.','Morenike S.','Tope F.','Ejike L.',
+    'Adunola B.','Chukwudi O.','Fiyin A.','Gbemisola T.','Hakeem N.','Idowu R.',
+    'Joke M.','Kelechi P.','Lola S.','Mahmud A.','Nnamdi F.','Oge B.','Pelumi C.',
+    'Quadri T.','Remilekun O.','Stella A.','Tokunbo O.','Udoka M.','Voke S.',
+    'Wasiu F.','Xena A.','Yinka B.','Zubby O.','Abiodun C.','Bankole T.','Chiamaka R.',
+    'Dayo A.','Ebunoluwa N.','Farouk M.','Ginika S.','Halimat B.','Isioma T.',
+    'Jide O.','Kehinde A.','Lilian F.','Maryam C.','Nonso B.','Opeyemi E.',
+    'Patience A.','Qudus T.','Rufus N.','Shade O.','Taiwo M.','Ugochi S.',
+    'Victor A.','Wunmi F.','Yvonne B.','Zara C.','Adeola T.','Babatunde O.'
+  ];
 
-</body>
-  </html>
-                                    
+  const amounts = [
+    '₦55,000','₦120,000','₦87,500','₦210,000','₦75,000','₦340,000','₦95,000',
+    '₦1,200,000','₦450,000','₦3,000,000','₦68,000','₦180,000','₦2,500,000',
+    '₦600,000','₦155,000','₦430,000','₦790,000','₦62,000','₦1,800,000','₦310,000'
+  ];
+
+  const emojis = ['🎮','💰','🎯','🏆','💵','🎲','🤑','🔥','😍','✅'];
+
+  const reviews = [
+    n => `⭐ <span>${n}</span> — "This is 100% legit, I just got paid!"`,
+    n => `💬 <span>${n}</span> — "Wow this game is really nice, I'm addicted!"`,
+    n => `🙌 <span>${n}</span> — "Just withdrew my money safely, no stress!"`,
+    n => `😍 <span>${n}</span> — "Best thing I joined this year, already earning"`,
+    n => `🔥 <span>${n}</span> — "I thought it was fake but I got paid same day"`,
+    n => `✅ <span>${n}</span> — "Very legit, my friend referred me and we both earned"`,
+    n => `💸 <span>${n}</span> — "Easiest money I've ever made, games are fun too"`,
+    n => `🎮 <span>${n}</span> — "I play for 30 mins daily and withdraw weekly"`,
+    n => `😭 <span>${n}</span> — "I wish I joined earlier, don't sleep on this"`,
+    n => `🏆 <span>${n}</span> — "Finally something that actually pays in Nigeria"`,
+    n => `👏 <span>${n}</span> — "Received alert immediately after withdrawal request"`,
+    n => `💯 <span>${n}</span> — "No hidden charges, no stories, just straight payment"`,
+    n => `🤩 <span>${n}</span> — "The games are genuinely fun AND you get paid?!"`,
+    n => `✔️ <span>${n}</span> — "Tested it with small amount first, then went all in"`,
+  ];
+
+  let lastReviewIdx = -1;
+  function updateTopBar() {
+    const el = document.getElementById('topBarText');
+    el.style.opacity = '0';
+    setTimeout(() => {
+      let idx;
+      do { idx = Math.floor(Math.random() * reviews.length); } while (idx === lastReviewIdx);
+      lastReviewIdx = idx;
+      const name = names[Math.floor(Math.random() * names.length)];
+      el.innerHTML = reviews[idx](name);
+      el.style.transition = 'opacity 0.35s ease';
+      el.style.opacity = '1';
+    }, 350);
+  }
+  setTimeout(() => { updateTopBar(); setInterval(updateTopBar, 5000); }, 2000);
+
+  const card = document.getElementById('inlineCard');
+  let lastNameIdx = -1;
+  function updateInlineCard() {
+    card.classList.remove('visible');
+    setTimeout(() => {
+      let idx;
+      do { idx = Math.floor(Math.random() * names.length); } while (idx === lastNameIdx);
+      lastNameIdx = idx;
+      document.getElementById('ieAvatar').textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      document.getElementById('ieName').textContent = names[idx];
+      document.getElementById('ieAmount').textContent = amounts[Math.floor(Math.random() * amounts.length)];
+      card.classList.add('visible');
+    }, 500);
+  }
+  setTimeout(() => { updateInlineCard(); setInterval(updateInlineCard, 4000); }, 800);
+
+  function showToast(delayMs) {
+    setTimeout(() => {
+      const container = document.getElementById('toastContainer');
+      const name = names[Math.floor(Math.random() * names.length)];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `
+        <div class="toast-avatar">${emoji}</div>
+        <div class="toast-text">
+          <strong>${name}</strong> just joined the channel<br>
+          <span>a moment ago</span>
+        </div>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.add('show'), 50);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+      }, 3500);
+    }, delayMs);
+  }
+
+  function fireToastBatch() {
+    const isBatch = Math.random() < 0.35;
+    showToast(0);
+    if (isBatch) {
+      showToast(700);
+      if (Math.random() < 0.3) showToast(1400);
+    }
+  }
+
+  setTimeout(function loop() {
+    fireToastBatch();
+    setTimeout(loop, 5000 + Math.random() * 5000);
+  }, 3000);
+
+  let count = Math.floor(Math.random() * 15000) + 5000;
+  document.getElementById('liveCount').textContent = count.toLocaleString();
+  setInterval(() => {
+    count = Math.m
